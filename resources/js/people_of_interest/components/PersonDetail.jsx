@@ -9,6 +9,10 @@ const PersonDetail = () => {
         setPersonId(id);
     };
 
+    const handleClose = () => {
+        setPersonId(null);
+    };
+
     const fetchAllPeople = async () => {
         const response = await fetch("/api/people");
         const data = await response.json();
@@ -16,6 +20,7 @@ const PersonDetail = () => {
     };
 
     const fetchPerson = async () => {
+        if (!personId) return;
         const response = await fetch(`/api/people/${personId}`);
         const data = await response.json();
         console.log(data);
@@ -23,21 +28,35 @@ const PersonDetail = () => {
     };
 
     useEffect(() => {
-        fetchAllPeople();
-    }, []);
-
-    useEffect(() => {
-        fetchPerson(personId);
+        if (!personId) {
+            fetchAllPeople();
+        } else if (personId) {
+            fetchPerson(personId);
+        } else {
+            return;
+        }
     }, [personId]);
 
     const renderedPeople =
-        data && data.length > 1
-            ? data.map((el) => (
-                  <p onClick={handleClick.bind(null, el.id)} key={el.id}>
-                      {el.name}
-                  </p>
-              ))
-            : console.log(data);
+        data && !personId && data.length > 1 ? (
+            data.map((el) => (
+                <p
+                    style={{ cursor: "pointer" }}
+                    onClick={handleClick.bind(null, el.id)}
+                    key={el.id}
+                >
+                    {el.name}
+                </p>
+            ))
+        ) : (
+            <div style={{ display: "flex" }}>
+                <p>{data?.name}</p> <p>{data?.status_text}</p>
+                <img src={"images/" + data?.image?.path} alt={data?.name} />
+                <span onClick={handleClose} style={{ cursor: "pointer" }}>
+                    x
+                </span>
+            </div>
+        );
 
     return <div className="list">{!data ? "Loading..." : renderedPeople}</div>;
 };
