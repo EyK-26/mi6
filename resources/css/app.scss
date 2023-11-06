@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Noto+Serif+Display:wght@200;400;700&display=swap");
+
+body {
+    margin: 0;
+    box-sizing: border-box;
+    .container {
+        display: flex;
+        height: 100vh;
+        color: #fff;
+        font-size: 1.5rem;
+        background-color: #2b5554;
+        .left-panel {
+            position: relative;
+            font-family: "Cutive Mono", monospace;
+            width: 13em;
+            display: flex;
+            flex-direction: column;
+            background-color: #163838;
+            &.hidden {
+                left: -13em;
+            }
+            .toggle-button {
+                position: absolute;
+                background-color: #163838;
+                font-size: larger;
+                top: 1em;
+                text-align: center;
+                width: 1.3em;
+                right: -1.3em;
+            }
+            a {
+                text-decoration: none;
+                color: #fff;
+            }
+            .logo {
+                height: 20%;
+                width: 100%;
+                background-image: url("/images/icons/mi6-seal-bg.png");
+                background-size: 40% 85%;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+        }
+        .main-content {
+            font-family: "Noto Serif Display", serif;
+            width: 80%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #2b5554 no-repeat center
+                url("/images/icons/mi6-seal.png");
+        }
+    }
+}

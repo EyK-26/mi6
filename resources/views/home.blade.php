@@ -8,11 +8,9 @@
 </head>
 
 <body>
-    <h1>Title</h1>
     <div id="root">
 
     </div>
-    @viteReactRefresh
     @vite('resources/js/people_of_interest.jsx')
 </body>
 
