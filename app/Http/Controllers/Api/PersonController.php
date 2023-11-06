@@ -13,4 +13,10 @@ class PersonController extends Controller
         $query = Person::query()->with('status')->limit(50)->get();
         return $query->load('image');
     }
+
+    public function show($id)
+    {
+        $person = Person::findOrFail($id);
+        return $person->load('image', 'status');
+    }
 }
