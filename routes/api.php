@@ -19,4 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/people', [PersonController::class, 'index'])->name('people');
+Route::get('/people', [PersonController::class, 'index'])->name('people.index');
+Route::get('/people/{person_id}', [PersonController::class, 'show'])->whereNumber('person_id')->name('people.show');
