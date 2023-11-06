@@ -5,26 +5,41 @@ const PersonDetail = () => {
     const [personId, setPersonId] = useState(null);
     const [data, setData] = useState(null);
 
+    const handleClick = (id) => {
+        setPersonId(id);
+    };
+
     const fetchAllPeople = async () => {
         const response = await fetch("/api/people");
         const data = await response.json();
         setData(data);
     };
 
-    const fetchPerson = async (personId) => {
-        const response = await fetch(`/api/people${personId}`);
+    const fetchPerson = async () => {
+        const response = await fetch(`/api/people/${personId}`);
         const data = await response.json();
         console.log(data);
+        setData(data);
     };
 
     useEffect(() => {
         fetchAllPeople();
     }, []);
 
-    const renderedPeople =
-        data && data.map((el) => <p key={el.id}>{el.name}</p>);
+    useEffect(() => {
+        fetchPerson(personId);
+    }, [personId]);
 
-    return <div>{!data ? "Loading..." : renderedPeople}</div>;
+    const renderedPeople =
+        data && data.length > 1
+            ? data.map((el) => (
+                  <p onClick={handleClick.bind(null, el.id)} key={el.id}>
+                      {el.name}
+                  </p>
+              ))
+            : console.log(data);
+
+    return <div className="list">{!data ? "Loading..." : renderedPeople}</div>;
 };
 
 export default PersonDetail;

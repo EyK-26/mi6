@@ -45,15 +45,23 @@ body {
 }
 
 .main-content {
+    display: flex;
+    flex-direction: column;
     font-family: "Noto Serif Display", serif;
     width: 80%;
     display: flex;
     justify-content: center;
     align-items: center;
     background: #2b5554 no-repeat center url("/images/icons/mi6-seal.png");
+    background-attachment: fixed;
     background-size: cover;
     h1 {
         font-size: 5rem;
         font-weight: 400;
+    }
+    .list {
+        display: flex;
+        flex-direction: column;
+        overflow: scroll;
     }
 }
