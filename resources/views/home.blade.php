@@ -13,6 +13,7 @@
 
     </div>
     @vite('resources/js/people_of_interest.jsx')
+    {{-- @viteReactRefresh --}}
 </body>
 
 </html>

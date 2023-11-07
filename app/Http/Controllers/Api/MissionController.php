@@ -13,9 +13,31 @@ class MissionController extends Controller
         $query = Mission::all();
         return $query;
     }
-    public function show($id)
+    public function show($mission_id)
     {
-        $query = Mission::findOrFail($id);
+        $query = Mission::findOrFail($mission_id);
         return $query;
+    }
+    public function update(Request $request, $mission_id)
+    {
+        $request->validate([
+            "name" => "required",
+            'year' => 'required',
+        ]);
+
+        $mission = Mission::with("people")->findOrFail($mission_id);
+
+        if (!$mission) {
+            return [
+                'message' => 'Mission not found!'
+            ];
+        }
+
+        $mission->name = $request->input('name');
+        $mission->year = $request->input('year');
+        $mission->outcome = $request->input('outcome');
+        $mission->save();
+
+        return ['message' => 'Mission updated!'];
     }
 }

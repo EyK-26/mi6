@@ -1,16 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../css/app.scss";
 import Navigation from "./components/Navigation";
 import HomePage from "./components/HomePage";
-import PersonDetail from "./components/PersonDetail";
 
 const App = () => {
-    return (
-        <div className="container">
-            <Navigation />
-            <HomePage />
-        </div>
-    );
+	const [content, setContent] = useState("");
+	const [missionId, setMissionId] = useState(null);
+
+	return (
+		<div className="container">
+			<Navigation
+				content={content}
+				setContent={setContent}
+				missionId={missionId}
+				setMissionId={setMissionId}
+			/>
+			<HomePage
+				content={content}
+				missionId={missionId}
+				setMissionId={setMissionId}
+			/>
+		</div>
+	);
 };
 
 export default App;
