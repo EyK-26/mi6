@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { render } from "react-dom";
+import axios from "axios";
 
-const PersonDetail = () => {
+const PersonDetail = ({ selectedStatus }) => {
     const [personId, setPersonId] = useState(null);
     const [data, setData] = useState(null);
 
@@ -14,9 +15,14 @@ const PersonDetail = () => {
     };
 
     const fetchAllPeople = async () => {
-        const response = await fetch("/api/people");
-        const data = await response.json();
-        setData(data);
+        try {
+            const response = await axios.get(
+                `/api/people?status=${encodeURIComponent(selectedStatus)}`
+            );
+            setData(response.data);
+        } catch (err) {
+            console.log(err.response);
+        }
     };
 
     const fetchPerson = async () => {
@@ -32,10 +38,8 @@ const PersonDetail = () => {
             fetchAllPeople();
         } else if (personId) {
             fetchPerson(personId);
-        } else {
-            return;
         }
-    }, [personId]);
+    }, [personId, selectedStatus]);
 
     const renderedPeople =
         data && !personId && data.length > 1 ? (
