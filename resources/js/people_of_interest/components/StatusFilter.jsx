@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const StatusFilter = ({ selectedStatus, setSelectedStatus }) => {
     const [statuses, setStatuses] = useState([]);
 
     const fetchStatuses = async () => {
-        const response = await fetch("/api/statuses");
-        const data = await response.json();
-        setStatuses(data);
+        try {
+            const response = await axios.get("/api/statuses");
+            setStatuses(response.data);
+        } catch (err) {
+            console.log(err.response);
+        }
     };
 
     useEffect(() => {

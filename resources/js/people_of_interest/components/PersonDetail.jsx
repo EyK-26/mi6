@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { render } from "react-dom";
+import axios from "axios";
 
 const PersonDetail = ({ selectedStatus }) => {
     const [personId, setPersonId] = useState(null);
@@ -14,11 +15,14 @@ const PersonDetail = ({ selectedStatus }) => {
     };
 
     const fetchAllPeople = async () => {
-        const response = await fetch(
-            `/api/people?status=${encodeURIComponent(selectedStatus)}`
-        );
-        const data = await response.json();
-        setData(data);
+        try {
+            const response = await axios.get(
+                `/api/people?status=${encodeURIComponent(selectedStatus)}`
+            );
+            setData(response.data);
+        } catch (err) {
+            console.log(err.response);
+        }
     };
 
     const fetchPerson = async () => {
