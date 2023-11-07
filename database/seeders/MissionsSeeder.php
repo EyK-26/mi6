@@ -220,9 +220,10 @@ class MissionsSeeder extends Seeder
 
         ];
 
-        foreach ($missions as $mission) {
+        $outcomes = [true, false, null];
 
-            Mission::create(['name' => $mission['name'], 'year' => $mission['year']]);
+        foreach ($missions as $mission) {
+            Mission::create(['name' => $mission['name'], 'year' => $mission['year'], 'outcome' => $outcomes[rand(0, count($outcomes) - 1)]]);
         }
     }
 }

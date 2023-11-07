@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->year('year');
-            $table->string('outcome')->nullable();
+            $table->boolean('outcome')->nullable();
             $table->timestamps();
         });
     }
