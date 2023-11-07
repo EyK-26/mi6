@@ -8,10 +8,13 @@ use Illuminate\Http\Request;
 
 class PersonController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $query = Person::query()->with('status')->limit(50)->get();
-        return $query->load('image');
+        $status = $request->query('status');
+        $query = !empty($status) ? Person::query()->where("status_id", $status)->limit(100)->get()
+            : Person::query()->limit(100)->get();
+
+        return $query->load('image', 'status');
     }
 
     public function show($id)

@@ -64,4 +64,10 @@ body {
         flex-direction: column;
         overflow: scroll;
     }
+    button.status-filter__status {
+        background-color: rgb(218, 137, 137);
+    }
+    button.status-filter__status_selected {
+        background-color: blue;
+    }
 }

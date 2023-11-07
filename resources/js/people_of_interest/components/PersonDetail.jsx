@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { render } from "react-dom";
 
-const PersonDetail = () => {
+const PersonDetail = ({ selectedStatus }) => {
     const [personId, setPersonId] = useState(null);
     const [data, setData] = useState(null);
 
@@ -14,7 +14,9 @@ const PersonDetail = () => {
     };
 
     const fetchAllPeople = async () => {
-        const response = await fetch("/api/people");
+        const response = await fetch(
+            `/api/people?status=${encodeURIComponent(selectedStatus)}`
+        );
         const data = await response.json();
         setData(data);
     };
@@ -32,10 +34,8 @@ const PersonDetail = () => {
             fetchAllPeople();
         } else if (personId) {
             fetchPerson(personId);
-        } else {
-            return;
         }
-    }, [personId]);
+    }, [personId, selectedStatus]);
 
     const renderedPeople =
         data && !personId && data.length > 1 ? (
