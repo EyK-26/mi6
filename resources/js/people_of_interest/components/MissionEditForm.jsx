@@ -33,7 +33,7 @@ const MissionEditForm = ({ missionId, setMissionId }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        fetch('/api/missions/store', {
+        fetch(`/api/missions/${missionId}/store`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',

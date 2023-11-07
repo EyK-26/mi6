@@ -19,9 +19,9 @@ class MissionController extends Controller
         return $query;
     }
 
-    public function store(Request $request)
+    public function store($id, Request $request)
     {
-        $mission = new Mission();
+        $mission = Mission::findOrFail($id);
         $mission->name = $request->post('name');
         $mission->outcome = $request->post('outcome');
         $mission->year = $request->post('year');
