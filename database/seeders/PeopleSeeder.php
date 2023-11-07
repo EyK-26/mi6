@@ -26,7 +26,7 @@ class PeopleSeeder extends Seeder
 
         $source_file = storage_path('data.json'); // data.json
         if (!file_exists($source_file)) {
-            die('Source file '.$source_file.' not found');
+            die('Source file ' . $source_file . ' not found');
         }
 
         $data = json_decode(file_get_contents($source_file));
@@ -39,7 +39,7 @@ class PeopleSeeder extends Seeder
             $image = null;
             if ($item->image) {
                 $image = new Image; // \App\Image
-                $image->path = 'people/'.$item->image;
+                $image->path = 'people/' . $item->image;
                 $image->save();
             }
 
@@ -50,7 +50,7 @@ class PeopleSeeder extends Seeder
 
             // find the right status
             foreach ($statuses as $status_id => $name) {
-                if (preg_match('#'.preg_quote($name, '#').'#i', $item->status)) {
+                if (preg_match('#' . preg_quote($name, '#') . '#i', $item->status)) {
                     $person->status_id = $status_id;
                     break;
                 }
