@@ -11,10 +11,10 @@ class MissionPersonSeeder extends Seeder
 
     public function run(): void
     {
-        // DB::table("mission_person")->truncate();
+        DB::table("mission_person")->truncate();
 
         while (DB::table("mission_person")->count() < 50) {
-            DB::table("mission_person")->insert(['mission_id' => rand(1, 25), 'person_id' => rand(1, 319)]);
+            DB::table("mission_person")->insert(['mission_id' => rand(1, 25), 'person_id' => rand(1, 319), 'created_at' => now(), 'updated_at' => now()]);
         }
     }
 }

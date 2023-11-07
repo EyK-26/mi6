@@ -15,6 +15,7 @@ return new class extends Migration
             $table->foreignId('mission_id');
             $table->foreignId('person_id');
             $table->timestamps();
+            $table->unique(['mission_id', 'person_id']);
         });
     }
 
