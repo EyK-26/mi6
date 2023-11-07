@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../css/app.scss";
 import Navigation from "./components/Navigation";
 import HomePage from "./components/HomePage";
-import PersonDetail from "./components/PersonDetail";
 
 const App = () => {
+    const [content, setContent] = useState('')
     return (
         <div className="container">
-            <Navigation />
-            <HomePage />
+            <Navigation setContent={setContent} />
+            <HomePage content={content} />
         </div>
     );
 };

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Navigation = () => {
+const Navigation = ({ setContent }) => {
     const [hidden, setHidden] = useState(false);
 
     const toggleNav = () => {
@@ -17,8 +17,16 @@ const Navigation = () => {
                         &lt;
                     </div>
                     <div className="logo"></div>
-                    <a href="#">Home</a>
-                    <a href="#people-of-interest">People of Interest</a>
+                    <a href="#" onClick={() => setContent("")}>
+                        Home
+                    </a>
+                    <a
+                        href="#people-of-interest"
+                        onClick={() => setContent("people-of-interest")}
+                    >
+                        People of Interest
+                    </a>
+                <a href="#missions" onClick={() => setContent('missions')}>Missions</a>
                 </nav>
             )}
             {hidden ? (

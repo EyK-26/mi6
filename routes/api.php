@@ -28,3 +28,4 @@ Route::get('/statuses', [StatusController::class, 'index'])->name('statuses.inde
 
 Route::get('/missions', [MissionController::class, 'index'])->name('missions.index');
 Route::get('/missions/{mission_id}', [MissionController::class, 'show'])->whereNumber('mission_id')->name('missions.show');
+Route::post('/missions/store', [MissionController::class, 'store'])->name('missions.store');
