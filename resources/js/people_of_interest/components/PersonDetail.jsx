@@ -28,7 +28,6 @@ const PersonDetail = ({ selectedStatus }) => {
         if (!personId) return;
         const response = await fetch(`/api/people/${personId}`);
         const data = await response.json();
-        console.log(data);
         setData(data);
     };
 
