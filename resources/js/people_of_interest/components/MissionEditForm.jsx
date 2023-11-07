@@ -31,7 +31,7 @@ const MissionEditForm = ({ missionId, setMissionId }) => {
 
     const convertOutcome = (outComeObject) => {
         console.log(outComeObject);
-        return outComeObject == null
+        return outComeObject === null || outComeObject === ""
             ? "unknown"
             : outComeObject == 0
             ? "failed"
