@@ -17,7 +17,7 @@ export default function Missions({ missionId, setMissionId }) {
 
 	useEffect(() => {
 		fetchMissions();
-	}, []);
+	}, [missionId]);
 
 	const renderedMissions =
 		missionId !== null ? (
