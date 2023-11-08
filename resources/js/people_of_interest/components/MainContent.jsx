@@ -10,7 +10,6 @@ import Logout from "./auth/Logout";
 
 const MainContent = () => {
     const [selectedStatus, setSelectedStatus] = useState("");
-    
 
     return (
         <main className="main-content">

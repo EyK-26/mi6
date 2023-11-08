@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import { useNavigate } from "react-router";
+import { User } from "../../context/user";
 // import axios from "axios";
 
 export default function Login() {
     const { state, dispatch } = useContext(UserContext);
+    const { setUser } = useContext(User);
     const navigate = useNavigate();
 
     const [values, setValues] = useState({
@@ -55,12 +57,9 @@ export default function Login() {
                 type: "user/logout",
                 payload: false,
             });
-            dispatch({
-                type: "user/set",
-                payload: false,
-            });
 
-            navigate("/people-of-interest");
+            setUser(null);
+            navigate("/");
         }
     };
 

@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import { useNavigate } from "react-router";
+import { User } from "../../context/user";
 
 export default function Logout() {
     const { state, dispatch } = useContext(UserContext);
+    const { setUser } = useContext(User);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -47,8 +49,8 @@ export default function Logout() {
                 type: "user/logout",
                 payload: true,
             });
-
-            navigate("/people-of-interest");
+            setUser(null);
+            navigate("/");
         }
     };
 
