@@ -9,6 +9,10 @@
 
 <body>
     <h1>edit</h1>
+    @guest
+    @dd($mission)
+    @endguest
+
 </body>
 
 </html>

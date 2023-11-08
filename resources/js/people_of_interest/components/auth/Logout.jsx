@@ -17,32 +17,53 @@ export default function Logout() {
                     .getAttribute("content"),
             },
         });
+        const data = await response.json();
+        console.log(data);
 
         dispatch({
-            type: "user/login",
-            payload: false,
-        });
-        dispatch({
-            type: "user/register",
-            payload: false,
-        });
-        dispatch({
-            type: "user/logout",
-            payload: true,
+            type: "messages/set",
+            payload: data.message,
         });
 
-        navigate("/people-of-interest");
+        if (Math.floor(response.status / 100) !== 2) {
+            switch (response.status) {
+                case 422:
+                    console.log("VALIDATION FAILED:", data.errors);
+                    break;
+                default:
+                    console.log("UNKNOWN ERROR", data);
+                    break;
+            }
+        } else {
+            dispatch({
+                type: "user/login",
+                payload: false,
+            });
+            dispatch({
+                type: "user/register",
+                payload: false,
+            });
+            dispatch({
+                type: "user/logout",
+                payload: true,
+            });
+
+            navigate("/people-of-interest");
+        }
     };
 
     return (
-        <form
-            action="/logout"
-            method="post"
-            onSubmit={handleSubmit}
-            style={{ display: "flex", flexDirection: "column" }}
-        >
-            <label htmlFor="logout">Are you sure you want to logout?</label>
-            <button>Logout</button>
-        </form>
+        <>
+            {state.messages && <span>{state.messages}</span>}
+            <form
+                action="/logout"
+                method="post"
+                onSubmit={handleSubmit}
+                style={{ display: "flex", flexDirection: "column" }}
+            >
+                <label htmlFor="logout">Are you sure you want to logout?</label>
+                <button>Logout</button>
+            </form>
+        </>
     );
 }
