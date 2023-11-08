@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { UserContext } from "../context/userContext";
 
 const Navigation = () => {
     const [hidden, setHidden] = useState(false);
     const location = useLocation();
+    const { state, dispatch } = useContext(UserContext);
 
     const toggleNav = () => {
         setHidden((prev) => !prev);
@@ -41,30 +43,38 @@ const Navigation = () => {
                     >
                         missions
                     </Link>
-                    <Link
-                        to="/register"
-                        className={
-                            location.pathname === "/register" ? "current" : ""
-                        }
-                    >
-                        register
-                    </Link>
-                    <Link
-                        to="/login"
-                        className={
-                            location.pathname === "/login" ? "current" : ""
-                        }
-                    >
-                        login
-                    </Link>
-                    <Link
-                        to="/logout"
-                        className={
-                            location.pathname === "/logout" ? "current" : ""
-                        }
-                    >
-                        logout
-                    </Link>
+                    {state.isRegistered && (
+                        <Link
+                            to="/register"
+                            className={
+                                location.pathname === "/register"
+                                    ? "current"
+                                    : ""
+                            }
+                        >
+                            register
+                        </Link>
+                    )}
+                    {state.isLoggedOut && (
+                        <Link
+                            to="/login"
+                            className={
+                                location.pathname === "/login" ? "current" : ""
+                            }
+                        >
+                            login
+                        </Link>
+                    )}
+                    {state.isLoggedIn && (
+                        <Link
+                            to="/logout"
+                            className={
+                                location.pathname === "/logout" ? "current" : ""
+                            }
+                        >
+                            logout
+                        </Link>
+                    )}
                 </nav>
             )}
             {hidden && (
