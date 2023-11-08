@@ -12,7 +12,6 @@ const MainContent = () => {
         <main className="main-content">
             <Routes>
                 <Route path="/" element={<Welcome />} />
-
                 <Route
                     path="/people-of-interest"
                     element={
@@ -25,8 +24,8 @@ const MainContent = () => {
                         </>
                     }
                 />
-
                 <Route path="/missions" element={<Missions />} />
+                <Route path="*" element="page do not exist" />
             </Routes>
         </main>
     );
