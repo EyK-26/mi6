@@ -5,7 +5,7 @@ import { UserContext } from "../context/userContext";
 const Navigation = () => {
     const [hidden, setHidden] = useState(false);
     const location = useLocation();
-    const { state, dispatch } = useContext(UserContext);
+    const { state } = useContext(UserContext);
 
     const toggleNav = () => {
         setHidden((prev) => !prev);

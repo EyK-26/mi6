@@ -1,11 +1,6 @@
 export default function reducer(state, action) {
     console.log(state, action);
     switch (action.type) {
-        case "user/set":
-            return {
-                ...state,
-                user: action.payload,
-            };
         case "user/register":
             return {
                 ...state,

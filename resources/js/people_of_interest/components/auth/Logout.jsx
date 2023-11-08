@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
 import { UserContext } from "../../context/userContext";
+import { useNavigate } from "react-router";
 
 export default function Logout() {
     const { state, dispatch } = useContext(UserContext);
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -10,7 +12,6 @@ export default function Logout() {
             method: "POST",
             headers: {
                 Accept: "application/json",
-                "Content-type": "application/json",
                 "X-CSRF-TOKEN": document
                     .querySelector('meta[name="csrf-token"]')
                     .getAttribute("content"),
@@ -29,6 +30,8 @@ export default function Logout() {
             type: "user/logout",
             payload: true,
         });
+
+        navigate("/people-of-interest");
     };
 
     return (
