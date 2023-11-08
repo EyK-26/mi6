@@ -18,4 +18,4 @@ Route::get('/', function () {
 });
 
 
-Route::view('/{path?}', 'home')->where('path', '.*');
+Route::view('/{path?}', 'home')->where('path', '[^admin].*');
