@@ -16,18 +16,15 @@ export default function Logout() {
                     .getAttribute("content"),
             },
         });
-        const data = await response.json();
-        if (Math.floor(response.status / 100) !== 2) {
-            switch (response.status) {
-                case 422:
-                    console.log("LOGOUT FAILED:", data.errors);
-                    break;
-                default:
-                    console.log("UNKNOWN ERROR", data);
-                    break;
-            }
-        }
 
+        dispatch({
+            type: "user/login",
+            payload: false,
+        });
+        dispatch({
+            type: "user/register",
+            payload: false,
+        });
         dispatch({
             type: "user/logout",
             payload: true,
@@ -41,6 +38,7 @@ export default function Logout() {
             onSubmit={handleSubmit}
             style={{ display: "flex", flexDirection: "column" }}
         >
+            <label htmlFor="logout">Are you sure you want to logout?</label>
             <button>Logout</button>
         </form>
     );

@@ -1,4 +1,5 @@
 export default function reducer(state, action) {
+    console.log(state, action);
     switch (action.type) {
         case "user/set":
             return {
@@ -19,6 +20,11 @@ export default function reducer(state, action) {
             return {
                 ...state,
                 isLoggedOut: action.payload,
+            };
+        case "messages/set":
+            return {
+                ...state,
+                messages: action.payload,
             };
         default:
             return state;

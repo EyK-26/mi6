@@ -26,6 +26,12 @@ export default function Register() {
             },
         });
         const data = await response.json();
+        console.log(data);
+
+        dispatch({
+            type: "messages/set",
+            payload: data.message,
+        });
 
         if (Math.floor(response.status / 100) !== 2) {
             switch (response.status) {
@@ -36,26 +42,20 @@ export default function Register() {
                     console.log("UNKNOWN ERROR", data);
                     break;
             }
+        } else {
+            dispatch({
+                type: "user/login",
+                payload: true,
+            });
+            dispatch({
+                type: "user/register",
+                payload: true,
+            });
+            dispatch({
+                type: "user/logout",
+                payload: false,
+            });
         }
-
-        dispatch({
-            type: "user/register",
-            payload: true,
-        });
-
-        // try {
-        //     const response = await axios.post('/register', values);
-        //     const data = response.data;
-        // } catch (error) {
-        //     switch (error.response.status) {
-        //         case 422:
-        //             console.log('VALIDATION FAILED:', error.response.data.errors);
-        //              break;
-        //         case 500:
-        //             console.log('UNKNOWN ERROR', error.response.data);
-        //             break;
-        //     }
-        // }
     };
 
     const handleChange = (e) => {
@@ -68,41 +68,46 @@ export default function Register() {
     };
 
     return (
-        <form
-            action="/register"
-            method="post"
-            onSubmit={handleSubmit}
-            style={{ display: "flex", flexDirection: "column" }}
-        >
-            <label htmlFor="name">name</label>
-            <input
-                type="text"
-                name="name"
-                value={values.name}
-                onChange={handleChange}
-            />
-            <label htmlFor="email">email</label>
-            <input
-                type="email"
-                name="email"
-                value={values.email}
-                onChange={handleChange}
-            />
-            <label htmlFor="password">password</label>
-            <input
-                type="password"
-                name="password"
-                value={values.password}
-                onChange={handleChange}
-            />
-            <label htmlFor="password_confirmation">password confirmation</label>
-            <input
-                type="password"
-                name="password_confirmation"
-                value={values.password_confirmation}
-                onChange={handleChange}
-            />
-            <button>Register</button>
-        </form>
+        <>
+            {state.messages && <span>{state.messages}</span>}
+            <form
+                action="/register"
+                method="post"
+                onSubmit={handleSubmit}
+                style={{ display: "flex", flexDirection: "column" }}
+            >
+                <label htmlFor="name">name</label>
+                <input
+                    type="text"
+                    name="name"
+                    value={values.name}
+                    onChange={handleChange}
+                />
+                <label htmlFor="email">email</label>
+                <input
+                    type="email"
+                    name="email"
+                    value={values.email}
+                    onChange={handleChange}
+                />
+                <label htmlFor="password">password</label>
+                <input
+                    type="password"
+                    name="password"
+                    value={values.password}
+                    onChange={handleChange}
+                />
+                <label htmlFor="password_confirmation">
+                    password confirmation
+                </label>
+                <input
+                    type="password"
+                    name="password_confirmation"
+                    value={values.password_confirmation}
+                    onChange={handleChange}
+                />
+                <button>Register</button>
+            </form>
+        </>
     );
 }

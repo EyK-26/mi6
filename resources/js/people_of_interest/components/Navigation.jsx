@@ -43,7 +43,7 @@ const Navigation = () => {
                     >
                         missions
                     </Link>
-                    {state.isRegistered && (
+                    {!state.isRegistered && (
                         <Link
                             to="/register"
                             className={
@@ -55,7 +55,7 @@ const Navigation = () => {
                             register
                         </Link>
                     )}
-                    {state.isLoggedOut && (
+                    {!state.isLoggedIn && (
                         <Link
                             to="/login"
                             className={
@@ -65,7 +65,7 @@ const Navigation = () => {
                             login
                         </Link>
                     )}
-                    {state.isLoggedIn && (
+                    {!state.isLoggedOut && (
                         <Link
                             to="/logout"
                             className={
