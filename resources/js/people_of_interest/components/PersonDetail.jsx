@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { render } from "react-dom";
 import axios from "axios";
 
 const PersonDetail = ({ selectedStatus }) => {
@@ -29,7 +28,6 @@ const PersonDetail = ({ selectedStatus }) => {
         if (!personId) return;
         const response = await fetch(`/api/people/${personId}`);
         const data = await response.json();
-        console.log(data);
         setData(data);
     };
 
@@ -56,7 +54,10 @@ const PersonDetail = ({ selectedStatus }) => {
             <div style={{ display: "flex" }}>
                 <p>{data?.name}</p> <p>{data?.status_text}</p>
                 <img src={"images/" + data?.image?.path} alt={data?.name} />
-                <span onClick={handleClose} style={{ cursor: "pointer" }}>
+                <span
+                    onClick={handleClose}
+                    style={{ cursor: "pointer", color: "red" }}
+                >
                     x
                 </span>
             </div>
