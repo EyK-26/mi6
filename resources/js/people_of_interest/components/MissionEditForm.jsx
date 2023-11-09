@@ -7,6 +7,7 @@ const MissionEditForm = ({ missionId, setMissionId }) => {
     const [mission, setMission] = useState(null);
     const [success, setSuccess] = useState(null);
     const [personId, setPersonId] = useState(0);
+    const [unassigned, setUnassigned] = useState(0);
 
     const fetchMission = async () => {
         try {
@@ -63,7 +64,12 @@ const MissionEditForm = ({ missionId, setMissionId }) => {
                         <li>{mission.year}</li>
                         <li>{convertOutcome(mission.outcome)}</li>
                         <div className="people-list">
-                            <MissionPeople missionPeopleList={mission.people} />
+                            <MissionPeople
+                                missionId={mission.id}
+                                missionPeopleList={mission.people}
+                                fetchMission={fetchMission}
+                                setSuccess={setSuccess}
+                            />
                         </div>
                     </ul>
                     <br />

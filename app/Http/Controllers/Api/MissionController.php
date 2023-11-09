@@ -71,19 +71,18 @@ class MissionController extends Controller
             'message' => "success: $mission->name has been assigned to $person->name"
         ];
     }
-    // public function assignPerson(Request $request)
-    // {
-    //     $missionId = $request->input('missionId');
-    //     $personId = $request->input('personId');
+    public function unassignPerson(Request $request)
+    {
+        $missionId = $request->input('missionId');
+        $personId = $request->input('personId');
 
-    //     $mission = Mission::findOrFail($missionId);
-    //     $person = Person::findOrFail($personId);
-    //     $mission->people()->attach($person->id);
+        $mission = Mission::findOrFail($missionId);
+        $person = Person::findOrFail($personId);
 
-    //     return [
-    //         'message' => "$mission->name has been assigned to $person->name"
-    //     ];
-    // }
+        $mission->people()->detach($person->id);
 
-
+        return [
+            'message' => "$mission->name has been unassigned from $person->name"
+        ];
+    }
 }

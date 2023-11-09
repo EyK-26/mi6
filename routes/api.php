@@ -31,3 +31,4 @@ Route::get('/missions/{mission_id}', [MissionController::class, 'show'])->whereN
 Route::post('/missions/send/{mission_id}', [MissionController::class, 'send'])->whereNumber('mission_id')->name('missions.send');
 Route::post('/missions/{mission_id}/update', [MissionController::class, 'update'])->whereNumber('mission_id')->name('missions.update');
 Route::post('/missions/assign-person', [MissionController::class, 'assignPerson'])->name('mission.assign');
+Route::post('/missions/unassign-person', [MissionController::class, 'unassignPerson'])->name('mission.unassign');
