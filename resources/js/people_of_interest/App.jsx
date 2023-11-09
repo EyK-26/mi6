@@ -9,7 +9,6 @@ import { User } from "./context/user";
 
 const App = () => {
     const [userContext, setUserContext] = useReducer(reducer, {
-        user: null,
         isRegistered: false,
         isLoggedIn: false,
         isLoggedOut: true,

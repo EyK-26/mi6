@@ -15,6 +15,17 @@ const Missions = () => {
         }
     };
 
+    const fetchMission = async (missionId) => {
+        try {
+            const response = await axios.post(
+                `/api/missions/send/${missionId}`
+            );
+            console.log(response.data);
+        } catch (err) {
+            console.log(err.response);
+        }
+    };
+
     useEffect(() => {
         fetchMissions();
     }, []);
@@ -26,13 +37,17 @@ const Missions = () => {
                     "Loading"
                 ) : (
                     data.map((el) => (
-                        <p
-                            style={{ cursor: "pointer" }}
-                            onClick={() => setMissionId(el.id)}
-                            key={el.id}
-                        >
-                            {el.name}
-                        </p>
+                        <div key={el.id}>
+                            <p
+                                style={{ cursor: "pointer" }}
+                                onClick={() => setMissionId(el.id)}
+                            >
+                                {el.name}
+                            </p>
+                            <button onClick={() => fetchMission(el.id)}>
+                                send to my mail
+                            </button>
+                        </div>
                     ))
                 )
             ) : (

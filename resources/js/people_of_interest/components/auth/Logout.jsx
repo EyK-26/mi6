@@ -58,7 +58,7 @@ export default function Logout() {
         <>
             {state.messages && <span>{state.messages}</span>}
             <form
-                action="/logout"
+                action=""
                 method="post"
                 onSubmit={handleSubmit}
                 style={{ display: "flex", flexDirection: "column" }}
