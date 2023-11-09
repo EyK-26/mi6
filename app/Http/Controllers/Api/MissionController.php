@@ -8,6 +8,7 @@ use App\Models\Mission;
 use App\Models\User;
 use App\Notifications\MissionOutcomeUpdated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 
@@ -50,8 +51,9 @@ class MissionController extends Controller
         Mail::to('test@test.com')
             ->cc('copy@example.com')
             ->send(new SendMissionDetails($id, $mission));
+        $user = Auth::user();
         return [
-            'message' => 'sent'
+            'message' => $user
         ];
     }
 }
