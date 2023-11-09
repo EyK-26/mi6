@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Mail\SendMissionDetails;
 use App\Models\Mission;
-use Illuminate\Contracts\Session\Session;
+use App\Models\User;
+use App\Notifications\MissionOutcomeUpdated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 
-use function Laravel\Prompts\error;
 
 class MissionController extends Controller
 {
@@ -34,6 +35,9 @@ class MissionController extends Controller
         $mission->save();
 
         $message = !array_key_exists('message', $validate) ? "updated successfully" : $validate;
+        $admins = User::query()->where('role', 'admin')->get();
+        Notification::send($admins, new MissionOutcomeUpdated($mission));
+
 
         return [
             'message' => $message

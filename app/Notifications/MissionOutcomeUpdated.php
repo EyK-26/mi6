@@ -14,9 +14,11 @@ class MissionOutcomeUpdated extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public $mission = null;
+
+    public function __construct($mission)
     {
-        //
+        $this->mission = $mission;
     }
 
     /**
@@ -26,7 +28,7 @@ class MissionOutcomeUpdated extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -35,9 +37,10 @@ class MissionOutcomeUpdated extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->from('example@example.com', 'Example sender')
+            ->subject('Notification Subject')
+            ->greeting('Hello ' . $notifiable->name . ',')
+            ->line('Mission ' . $this->mission->id . ' ' . $this->mission->name . ' outcome has been updated to ' . $this->mission->outcome . '.');
     }
 
     /**
@@ -48,7 +51,10 @@ class MissionOutcomeUpdated extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            'admin_name' => $notifiable->name,
+            'name' => $this->mission['name'],
+            'id' => $this->mission['id'],
+            'outcome' => $this->mission['outcome']
         ];
     }
 }
