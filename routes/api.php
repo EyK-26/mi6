@@ -30,3 +30,4 @@ Route::get('/missions', [MissionController::class, 'index'])->name('missions.ind
 Route::get('/missions/{mission_id}', [MissionController::class, 'show'])->whereNumber('mission_id')->name('missions.show');
 
 Route::post('/missions/{mission_id}/update', [MissionController::class, 'update'])->whereNumber('mission_id')->name('missions.update');
+Route::post('/missions/{mission_id}/mail', [MissionController::class, 'mail'])->whereNumber('mission_id')->name('missions.mail');

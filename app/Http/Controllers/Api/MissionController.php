@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SendMissionDetails;
 use App\Models\Mission;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 use function Laravel\Prompts\error;
 
@@ -35,6 +37,17 @@ class MissionController extends Controller
 
         return [
             'message' => $message
+        ];
+    }
+
+    public function mail(Request $request, string $id)
+    {
+        $mission = Mission::findOrFail($id);
+        Mail::to('test@test.com')
+            ->cc('copy@example.com')
+            ->send(new SendMissionDetails($id, $mission));
+        return [
+            'message' => 'sent'
         ];
     }
 }
