@@ -5,7 +5,7 @@ import { User } from "../../context/user";
 // import axios from "axios";
 
 export default function Login() {
-    const { setUser } = useContext(User);
+    const { setUser, setMessage, message } = useContext(User);
     const navigate = useNavigate();
 
     const [values, setValues] = useState({
@@ -38,6 +38,7 @@ export default function Login() {
                     console.log("UNKNOWN ERROR", data);
                     break;
             }
+            setMessage(data.message);
         } else {
             setUser(null);
             navigate("/");
@@ -55,6 +56,7 @@ export default function Login() {
 
     return (
         <>
+            {message && <span>{message}</span>}
             <form
                 action="/login"
                 method="post"

@@ -8,6 +8,7 @@ import { User } from "./context/user";
 
 const App = () => {
     const [user, setUser] = useState(null);
+    const [message, setMessage] = useState(null);
 
     const loadUserStatus = async () => {
         const response = await fetch("/api/user", {
@@ -32,7 +33,7 @@ const App = () => {
     }, [user]);
 
     return (
-        <User.Provider value={{ user, setUser }}>
+        <User.Provider value={{ user, setUser, message, setMessage }}>
             <BrowserRouter>
                 <div className="container">
                     <Navigation />

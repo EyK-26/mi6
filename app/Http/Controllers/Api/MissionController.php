@@ -8,6 +8,8 @@ use App\Models\Mission;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use App\Mail\TestEmail;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 use function Laravel\Prompts\error;
@@ -27,7 +29,8 @@ class MissionController extends Controller
     public function send($id): void
     {
         $mission = Mission::findOrFail($id);
-        Mail::to('test@test.com')->send(new SendMissionDetails($mission->load('people')));
+        $userEmail = Auth::user()->email;
+        Mail::to($userEmail)->send(new SendMissionDetails($mission->load('people')));
     }
 
     public function update(Request $request, string $id)
