@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { User } from "../context/user";
 
-const Navigation = ({ content, setContent }) => {
+const Navigation = () => {
     const [hidden, setHidden] = useState(false);
+    const { user, setUser } = useContext(User);
+    const location = useLocation();
 
     const toggleNav = () => {
         setHidden((prev) => !prev);
@@ -15,33 +19,62 @@ const Navigation = ({ content, setContent }) => {
                         &lt;
                     </div>
                     <div className="logo"></div>
-                    <a
-                        href="#"
-                        onClick={() => setContent("")}
-                        className={!content ? "current" : undefined}
+                    <Link
+                        to="/"
+                        className={location.pathname === "/" ? "current" : ""}
                     >
                         Home
-                    </a>
-                    <a
-                        href="#people-of-interest"
-                        onClick={() => setContent("people-of-interest")}
+                    </Link>
+                    <Link
+                        to="/people-of-interest"
                         className={
-                            content === "people-of-interest"
+                            location.pathname === "/people-of-interest"
                                 ? "current"
-                                : undefined
+                                : ""
                         }
                     >
-                        People of Interest
-                    </a>
-                    <a
-                        href="#missions"
-                        onClick={() => setContent("missions")}
+                        people-of-interest
+                    </Link>
+                    <Link
+                        to="/missions"
                         className={
-                            content === "missions" ? "current" : undefined
+                            location.pathname === "/missions" ? "current" : ""
                         }
                     >
-                        Missions
-                    </a>
+                        missions
+                    </Link>
+                    {user === false && (
+                        <Link
+                            to="/register"
+                            className={
+                                location.pathname === "/register"
+                                    ? "current"
+                                    : ""
+                            }
+                        >
+                            register
+                        </Link>
+                    )}
+                    {user === false && (
+                        <Link
+                            to="/login"
+                            className={
+                                location.pathname === "/login" ? "current" : ""
+                            }
+                        >
+                            login
+                        </Link>
+                    )}
+                    {user && (
+                        <Link
+                            to="/logout"
+                            className={
+                                location.pathname === "/logout" ? "current" : ""
+                            }
+                        >
+                            logout
+                        </Link>
+                    )}
                 </nav>
             )}
             {hidden && (

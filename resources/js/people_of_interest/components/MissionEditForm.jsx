@@ -1,10 +1,13 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import MissionPeople from "./MissionPeople";
+import People from "./People";
 
 const MissionEditForm = ({ missionId, setMissionId }) => {
     const [mission, setMission] = useState(null);
     const [success, setSuccess] = useState(null);
+    const [personId, setPersonId] = useState(0);
+    const [unassigned, setUnassigned] = useState(0);
 
     const fetchMission = async () => {
         try {
@@ -16,8 +19,8 @@ const MissionEditForm = ({ missionId, setMissionId }) => {
     };
 
     const handleSubmit = async (ev) => {
+        ev.preventDefault();
         try {
-            ev.preventDefault();
             const data = await axios.post(
                 `/api/missions/${missionId}/update`,
                 mission
@@ -30,7 +33,6 @@ const MissionEditForm = ({ missionId, setMissionId }) => {
     };
 
     const convertOutcome = (outComeObject) => {
-        console.log(outComeObject);
         return outComeObject === null || outComeObject === ""
             ? "unknown"
             : outComeObject == 0
@@ -62,7 +64,12 @@ const MissionEditForm = ({ missionId, setMissionId }) => {
                         <li>{mission.year}</li>
                         <li>{convertOutcome(mission.outcome)}</li>
                         <div className="people-list">
-                            <MissionPeople missionPeopleList={mission.people} />
+                            <MissionPeople
+                                missionId={mission.id}
+                                missionPeopleList={mission.people}
+                                fetchMission={fetchMission}
+                                setSuccess={setSuccess}
+                            />
                         </div>
                     </ul>
                     <br />
@@ -97,6 +104,13 @@ const MissionEditForm = ({ missionId, setMissionId }) => {
                         </select>
                         <button type="submit">Update Mission</button>
                     </form>
+
+                    <People
+                        missionId={missionId}
+                        fetchMission={fetchMission}
+                        setSuccess={setSuccess}
+                    />
+
                     <button onClick={() => setMissionId(0)}>Cancel</button>
                 </>
             ) : (
