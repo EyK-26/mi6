@@ -11,8 +11,8 @@ class PersonController extends Controller
     public function index(Request $request)
     {
         $status = $request->query('status');
-        $query = !empty($status) ? Person::query()->where("status_id", $status)->limit(100)->get()
-            : Person::query()->limit(100)->get();
+        $query = !empty($status) ? Person::query()->where("status_id", $status)->limit(150)->get()
+            : Person::query()->limit(150)->get();
 
         return $query->load('image', 'status');
     }

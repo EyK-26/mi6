@@ -3,7 +3,6 @@ import { User } from "../context/user";
 
 const Welcome = () => {
     const { user } = useContext(User);
-    console.log(user);
     return (
         <>
             <h1>Welcome to MI6</h1>

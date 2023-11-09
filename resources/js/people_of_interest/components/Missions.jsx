@@ -20,8 +20,6 @@ const Missions = () => {
             const response = await axios.post(
                 `/api/missions/send/${missionId}`
             );
-            
-            console.log(response.data);
         } catch (err) {
             console.log(err.response);
         }

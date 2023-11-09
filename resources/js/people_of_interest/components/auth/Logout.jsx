@@ -10,8 +10,6 @@ export default function Logout() {
 
     const handleLogout = async (e) => {
         const response = await axios.post("/logout");
-        console.log(response.data);
-
         setUser(null);
         navigate("/");
 

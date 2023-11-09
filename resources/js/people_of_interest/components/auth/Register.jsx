@@ -29,7 +29,6 @@ export default function Register() {
             },
         });
         const data = await response.json();
-        console.log(data);
 
         if (Math.floor(response.status / 100) !== 2) {
             switch (response.status) {

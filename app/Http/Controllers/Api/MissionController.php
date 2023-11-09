@@ -8,6 +8,7 @@ use App\Models\Mission;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use App\Mail\TestEmail;
+use App\Models\Person;
 use App\Models\User;
 use App\Notifications\MissionOutcomeUpdated;
 use Illuminate\Support\Facades\Auth;
@@ -55,4 +56,34 @@ class MissionController extends Controller
             'message' => $message
         ];
     }
+
+    public function assignPerson(Request $request)
+    {
+        $missionId = $request->input('missionId');
+        $personId = $request->input('personId');
+
+        $mission = Mission::findOrFail($missionId);
+        $person = Person::findOrFail($personId);
+
+        $mission->people()->attach($person->id);
+
+        return [
+            'message' => "success: $mission->name has been assigned to $person->name"
+        ];
+    }
+    // public function assignPerson(Request $request)
+    // {
+    //     $missionId = $request->input('missionId');
+    //     $personId = $request->input('personId');
+
+    //     $mission = Mission::findOrFail($missionId);
+    //     $person = Person::findOrFail($personId);
+    //     $mission->people()->attach($person->id);
+
+    //     return [
+    //         'message' => "$mission->name has been assigned to $person->name"
+    //     ];
+    // }
+
+
 }
