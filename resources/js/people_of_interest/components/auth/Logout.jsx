@@ -7,8 +7,7 @@ export default function Logout() {
     const { setUser } = useContext(User);
     const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleLogout = async (e) => {
         const response = await fetch("/logout", {
             method: "POST",
             headers: {
@@ -38,15 +37,8 @@ export default function Logout() {
 
     return (
         <>
-            <form
-                action=""
-                method="post"
-                onSubmit={handleSubmit}
-                style={{ display: "flex", flexDirection: "column" }}
-            >
-                <label htmlFor="logout">Are you sure you want to logout?</label>
-                <button>Logout</button>
-            </form>
+            <span htmlFor="logout">Are you sure you want to logout?</span>
+            <button onClick={handleLogout}>Logout</button>
         </>
     );
 }
