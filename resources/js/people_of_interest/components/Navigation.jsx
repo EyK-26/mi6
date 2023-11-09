@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { UserContext } from "../context/userContext";
+import { User } from "../context/user";
 
 const Navigation = () => {
     const [hidden, setHidden] = useState(false);
+    const { user, setUser } = useContext(User);
     const location = useLocation();
-    const { state } = useContext(UserContext);
 
     const toggleNav = () => {
         setHidden((prev) => !prev);
@@ -43,7 +43,7 @@ const Navigation = () => {
                     >
                         missions
                     </Link>
-                    {!state.isRegistered && (
+                    {user === false && (
                         <Link
                             to="/register"
                             className={
@@ -55,7 +55,7 @@ const Navigation = () => {
                             register
                         </Link>
                     )}
-                    {!state.isLoggedIn && (
+                    {user === false && (
                         <Link
                             to="/login"
                             className={
@@ -65,7 +65,7 @@ const Navigation = () => {
                             login
                         </Link>
                     )}
-                    {!state.isLoggedOut && (
+                    {user && (
                         <Link
                             to="/logout"
                             className={

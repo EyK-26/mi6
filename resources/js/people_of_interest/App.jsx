@@ -4,16 +4,9 @@ import Navigation from "./components/Navigation";
 import MainContent from "./components/MainContent";
 import { BrowserRouter } from "react-router-dom";
 import { UserContext } from "./context/userContext";
-import reducer from "./store/reducer";
 import { User } from "./context/user";
 
 const App = () => {
-    const [userContext, setUserContext] = useReducer(reducer, {
-        isRegistered: false,
-        isLoggedIn: false,
-        isLoggedOut: true,
-        messages: null,
-    });
     const [user, setUser] = useState(null);
 
     const loadUserStatus = async () => {
@@ -40,16 +33,12 @@ const App = () => {
 
     return (
         <User.Provider value={{ user, setUser }}>
-            <UserContext.Provider
-                value={{ state: userContext, dispatch: setUserContext }}
-            >
-                <BrowserRouter>
-                    <div className="container">
-                        <Navigation />
-                        <MainContent />
-                    </div>
-                </BrowserRouter>
-            </UserContext.Provider>
+            <BrowserRouter>
+                <div className="container">
+                    <Navigation />
+                    <MainContent />
+                </div>
+            </BrowserRouter>
         </User.Provider>
     );
 };

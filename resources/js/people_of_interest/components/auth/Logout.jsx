@@ -4,7 +4,6 @@ import { useNavigate } from "react-router";
 import { User } from "../../context/user";
 
 export default function Logout() {
-    const { state, dispatch } = useContext(UserContext);
     const { setUser } = useContext(User);
     const navigate = useNavigate();
 
@@ -22,11 +21,6 @@ export default function Logout() {
         const data = await response.json();
         console.log(data);
 
-        dispatch({
-            type: "messages/set",
-            payload: data.message,
-        });
-
         if (Math.floor(response.status / 100) !== 2) {
             switch (response.status) {
                 case 422:
@@ -37,18 +31,6 @@ export default function Logout() {
                     break;
             }
         } else {
-            dispatch({
-                type: "user/login",
-                payload: false,
-            });
-            dispatch({
-                type: "user/register",
-                payload: false,
-            });
-            dispatch({
-                type: "user/logout",
-                payload: true,
-            });
             setUser(null);
             navigate("/");
         }
@@ -56,7 +38,6 @@ export default function Logout() {
 
     return (
         <>
-            {state.messages && <span>{state.messages}</span>}
             <form
                 action=""
                 method="post"

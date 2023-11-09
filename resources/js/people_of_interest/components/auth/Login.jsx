@@ -5,7 +5,6 @@ import { User } from "../../context/user";
 // import axios from "axios";
 
 export default function Login() {
-    const { state, dispatch } = useContext(UserContext);
     const { setUser } = useContext(User);
     const navigate = useNavigate();
 
@@ -30,11 +29,6 @@ export default function Login() {
         const data = await response.json();
         console.log(data);
 
-        dispatch({
-            type: "messages/set",
-            payload: data.message,
-        });
-
         if (Math.floor(response.status / 100) !== 2) {
             switch (response.status) {
                 case 422:
@@ -45,19 +39,6 @@ export default function Login() {
                     break;
             }
         } else {
-            dispatch({
-                type: "user/login",
-                payload: true,
-            });
-            dispatch({
-                type: "user/register",
-                payload: true,
-            });
-            dispatch({
-                type: "user/logout",
-                payload: false,
-            });
-
             setUser(null);
             navigate("/");
         }
@@ -74,7 +55,6 @@ export default function Login() {
 
     return (
         <>
-            {state.messages && <span>{state.messages}</span>}
             <form
                 action="/login"
                 method="post"
