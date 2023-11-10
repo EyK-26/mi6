@@ -34,10 +34,10 @@ const MissionEditForm = ({ missionId, setMissionId }) => {
         return outComeObject === null || outComeObject === ""
             ? "unknown"
             : outComeObject == 0
-            ? "failed"
-            : outComeObject
-            ? "success"
-            : undefined;
+                ? "failed"
+                : outComeObject
+                    ? "success"
+                    : undefined;
     };
 
     useEffect(() => {
@@ -51,6 +51,18 @@ const MissionEditForm = ({ missionId, setMissionId }) => {
         }));
     };
 
+    const sendMail = async () => {
+        console.log('Send mail')
+        try {
+            const data = await axios.post(
+                `/api/missions/${missionId}/mail`,
+            );
+        } catch (err) {
+            console.log(err.response.data.message);
+        }
+
+
+    }
     return (
         <>
             {success && <span>{success}</span>}
@@ -58,6 +70,7 @@ const MissionEditForm = ({ missionId, setMissionId }) => {
                 <>
                     <h2>Mission Detail</h2>
                     <ul>
+                        <a href="#"><li onClick={sendMail}>Send to my mail</li></a>
                         <li>{mission.name}</li>
                         <li>{mission.year}</li>
                         <li>{convertOutcome(mission.outcome)}</li>
